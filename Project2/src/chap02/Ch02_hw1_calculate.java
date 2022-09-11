@@ -34,6 +34,8 @@ public class Ch02_hw1_calculate {
 		default:
 			System.out.println("연산자 오류");
 		}
+		
+		sc.close();
 
 	}
 
