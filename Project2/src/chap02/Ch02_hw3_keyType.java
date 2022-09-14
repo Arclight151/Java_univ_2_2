@@ -14,7 +14,7 @@ public class Ch02_hw3_keyType {
 			//String input = sc.next();
 			//key = input.charAt(0);
 			key = System.in.read();
-			String str = sc.nextLine();
+			sc.nextLine();
 			
 			if (key >= 48 && key <= 57) {
 				System.out.println("키 종류: 숫자 / 키 코드: " + (int)key);
