@@ -9,7 +9,7 @@ public class Ch03_1_primeNumber {
 		
 		boolean isPrimeNumber = true;
 		
-		System.out.print("정수 입력: ");
+		System.out.print("Enter number: ");
 		int n = sc.nextInt();
 		
 		for (int i = 2; i <= n / 2 + 1; i++) {
@@ -20,9 +20,9 @@ public class Ch03_1_primeNumber {
 		}
 		
 		if (isPrimeNumber)
-			System.out.println(n + "은(는) 소수입니다.");
+			System.out.println(n + "is a Prime Number.");
 		else
-			System.out.println(n + "은(는) 소수가 아닙니다.");
+			System.out.println(n + "is not a Prime Number.");
 		
 		sc.close();
 
