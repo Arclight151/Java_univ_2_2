@@ -25,27 +25,34 @@ public class Ch04_hw1_wordGame {
 			pArray[i] = new Player();
 		}
 		
+		sc.nextLine();
 		for (int i = 0; i < pCount; i++) {
 			System.out.print("Player name " + (i + 1) + ": ");
-			String name = sc.next();
+			String name = sc.nextLine();
 			pArray[i].setName(name);
 		}
 		
 		System.out.println("Starting game...");
 		
 		int turn = 0;
+		System.out.print(pArray[turn].getName() + ": ");
+		pArray[turn].setWord(sc.next());
 		while(true) {
+			turn++;
+			if (turn >= pCount)
+				turn = 0;
+			
 			System.out.print(pArray[turn].getName() + ": ");
 			pArray[turn].setWord(sc.next());
 			
-			
-			turn++;
-			if (turn > pCount)
-				turn = 0;
+			if (pArray[turn].firstChar() != pArray[turn <= 0 ? pCount - 1 : turn - 1].lastChar()) {
+				System.out.println(pArray[turn].getName() + " failed!");
+				break;
+			}
 		}
 		
-		//sc.close();
-
+		sc.close();
+		
 	}
 
 }
