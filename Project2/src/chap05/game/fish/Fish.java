@@ -13,24 +13,33 @@ public class Fish extends Mover {
 	public char getIcon() { return icon; }
 
 	public void move() {
+		boolean escape = false;
 		int rand = (int)(Math.random() * 8);
 		switch(rand) {
 		case 0:
 			this.x++;
+			if (this.x > Play.mapY - 1)
+				escape = true;
 			break;
 		case 1:
 			this.x--;
+			if (this.x < 0)
+				escape = true;
 			break;
 		case 2:
 			this.y++;
+			if (this.y > Play.mapX - 1)
+				escape = true;
 			break;
 		case 3:
 			this.y--;
+			if (this.y < 0)
+				escape = true;
 			break;
 		default:
 			break;
 		}
-		if (true) { // TODO: add condition
+		if (escape) {
 			Play.gameState = Play.FISHWIN;
 		}
 	}
