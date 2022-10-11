@@ -1,6 +1,6 @@
 package chap06;
 
-public class Ch06_1_calcBySplit {
+public class Ch06_1_Split {
 
 	public static void main(String[] args) {
 		String str = "25+30-20";
