@@ -1,6 +1,7 @@
 package chap07.hw;
 
 import java.util.ArrayList;
+import java.util.Random;
 
 abstract class Rectangle {
 	protected int x, y, w, h;
@@ -38,10 +39,76 @@ class Missile extends Rectangle {
 	
 }
 
+class Setup {
+	int areaX = 100, areaY = 100;
+	int mx = 30, my = 30, mw = 40, mh = 30;
+	int tSize = 20;
+	Missile ms;
+	ArrayList<Target> tList;
+	ArrayList<Target> hitList;
+	
+	public Setup() {
+		ms = new Missile(mx, my, mw, mh);
+		tList = new ArrayList<>();
+		hitList = new ArrayList<>();
+	}
+	
+	private void generateTargets(int count) {
+		Random rand = new Random();
+		for (int i = 0; i < count; i++) {
+			Target tg = new Target(rand.nextInt(areaX - tSize + 1), rand.nextInt(areaY - tSize + 1), tSize);
+			tList.add(tg);
+		}
+	}
+	
+	private boolean hitScan(Missile m, Target t) {
+		if ((m.x >= (t.x - m.w) && m.x <= (t.x + t.w)) && (m.y >= (t.y - m.h) && m.y <= (t.y + t.h)))
+			return true;
+		else
+			return false;
+	}
+	
+	private int hitCount(Missile m, ArrayList<Target> arl) {
+		int count = 0, listSize = arl.size();
+		for (int i = 0; i < listSize; i++) {
+			if (hitScan(m, arl.get(i))) {
+				hitList.add(arl.get(i));
+//				arl.remove(i);
+//				i--;
+				count++;
+			}
+		}
+		
+		return count;
+	}
+	
+	public void start() {
+		generateTargets(5);
+		int hit = hitCount(ms, tList);
+		if (hit != 0)
+			System.out.println(hit + " Targets Hit");
+		else
+			System.out.println("No Targets Hit");
+		
+		System.out.println("Targets Destroyed: ");
+		for (int i = 0; i < hitList.size(); i++) {
+			System.out.print("Target at ");
+			hitList.get(i).printPos();
+		}
+		
+		System.out.println("Targets Remaining: ");
+		for (int i = 0; i < tList.size(); i++) {
+			System.out.print("Target at ");
+			tList.get(i).printPos();
+		}
+	}
+}
+
 public class Ch07_hw1_MissileSim {
 
 	public static void main(String[] args) {
-		
+		Setup s = new Setup();
+		s.start();
 
 	}
 
