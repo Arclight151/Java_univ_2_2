@@ -40,12 +40,12 @@ class Missile extends Rectangle {
 }
 
 class Setup {
-	int areaX = 100, areaY = 100;
-	int mx = 30, my = 30, mw = 40, mh = 30;
-	int tSize = 20;
+	int areaX = 100, areaY = 100;				// Simulation Area
+	int mx = 30, my = 30, mw = 40, mh = 30;		// Missile Size
+	int tSize = 20;								// Target w, h
 	Missile ms;
 	ArrayList<Target> tList;
-	ArrayList<Target> hitList;
+	ArrayList<Target> hitList;					// List for hit Targets
 	
 	public Setup() {
 		ms = new Missile(mx, my, mw, mh);
@@ -56,7 +56,7 @@ class Setup {
 	private void generateTargets(int count) {
 		Random rand = new Random();
 		for (int i = 0; i < count; i++) {
-			Target tg = new Target(rand.nextInt(areaX - tSize + 1), rand.nextInt(areaY - tSize + 1), tSize);
+			Target tg = new Target(rand.nextInt(areaX-tSize+1), rand.nextInt(areaY-tSize+1), tSize);
 			tList.add(tg);
 		}
 	}
@@ -73,12 +73,10 @@ class Setup {
 		for (int i = 0; i < listSize; i++) {
 			if (hitScan(m, arl.get(i))) {
 				hitList.add(arl.get(i));
-//				arl.remove(i);
-//				i--;
-				count++;
+				arl.set(i, null);	// Using set(null) instead of remove() to
+				count++;			// prevent ArrayIndexOutOfBounds
 			}
 		}
-		
 		return count;
 	}
 	
@@ -91,15 +89,21 @@ class Setup {
 			System.out.println("No Targets Hit");
 		
 		System.out.println("Targets Destroyed: ");
-		for (int i = 0; i < hitList.size(); i++) {
-			System.out.print("Target at ");
-			hitList.get(i).printPos();
+		if (hitList.size() == 0)
+			System.out.println("None");
+		else {
+			for (int i = 0; i < hitList.size(); i++) {
+				System.out.print("Target at ");
+				hitList.get(i).printPos();
+			}
 		}
 		
 		System.out.println("Targets Remaining: ");
 		for (int i = 0; i < tList.size(); i++) {
-			System.out.print("Target at ");
-			tList.get(i).printPos();
+			if (tList.get(i) != null) {		// to prevent NullPointerException
+				System.out.print("Target at ");
+				tList.get(i).printPos();
+			}
 		}
 	}
 }
