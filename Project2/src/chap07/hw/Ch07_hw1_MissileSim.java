@@ -100,7 +100,7 @@ class Setup {
 		
 		System.out.println("Targets Remaining: ");
 		for (int i = 0; i < tList.size(); i++) {
-			if (tList.get(i) != null) {		// to prevent NullPointerException
+			if (tList.get(i) != null) {		// condition to prevent NullPointerException
 				System.out.print("Target at ");
 				tList.get(i).printPos();
 			}
