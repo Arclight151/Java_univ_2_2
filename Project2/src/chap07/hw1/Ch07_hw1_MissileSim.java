@@ -1,4 +1,4 @@
-package chap07.hw;
+package chap07.hw1;
 
 import java.util.ArrayList;
 import java.util.Random;
