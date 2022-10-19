@@ -6,7 +6,7 @@ import java.util.Random;
 import chap07.hw2.rectangle_obj.Missile;
 import chap07.hw2.rectangle_obj.Target;
 
-class Setup_2 {		// TODO: try using remove()
+class Setup_2 {
 	int areaX = 100, areaY = 100;				// Simulation Area
 	int mx = 30, my = 30, mw = 40, mh = 30;		// Missile Size
 	int tSize = 30;								// Target w, h
@@ -39,6 +39,7 @@ class Setup_2 {		// TODO: try using remove()
 		for (int i = 0; i < arl.size(); i++) {
 			if (hitScan(m, arl.get(i))) {
 				arl.remove(i);
+				i--;
 				count++;
 			}
 		}
