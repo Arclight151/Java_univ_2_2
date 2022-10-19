@@ -1,0 +1,8 @@
+file
+stream
+input
+output
+read
+write
+system
+scanner
