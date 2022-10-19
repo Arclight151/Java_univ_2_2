@@ -1,30 +1,43 @@
 package chap07.hw2.rectangle_main;
 
 import java.util.ArrayList;
-import java.util.Random;
+//import java.util.Random;
 
 import chap07.hw2.rectangle_obj.Missile;
 import chap07.hw2.rectangle_obj.Target;
 
 class Setup_2 {
-	int areaX = 100, areaY = 100;				// Simulation Area
-	int mx = 30, my = 30, mw = 40, mh = 30;		// Missile Size
-	int tSize = 30;								// Target w, h
+	int areaX = 100, areaY = 100;
+	int mx = 30, my = 30, mw = 40, mh = 30;
+	int tSize = 30;
 	Missile ms;
 	ArrayList<Target> tList;
-	ArrayList<Target> hitList;					// List for hit Targets
+	ArrayList<Target> hitList;
 	
 	public Setup_2() {
 		ms = new Missile(mx, my, mw, mh);
 		tList = new ArrayList<>();
 	}
 	
-	private void generateTargets(int count) {
-		Random rand = new Random();
-		for (int i = 0; i < count; i++) {
-			Target tg = new Target(rand.nextInt(areaX-tSize+1), rand.nextInt(areaY-tSize+1), tSize);
-			tList.add(tg);
-		}
+//	private void generateTargets(int count) {
+//		Random rand = new Random();
+//		for (int i = 0; i < count; i++) {
+//			Target tg = new Target(rand.nextInt(areaX-tSize+1), rand.nextInt(areaY-tSize+1), tSize);
+//			tList.add(tg);
+//		}
+//	}
+	
+	private void manualGen() {
+		Target tg = new Target(0, 0, tSize);
+		tList.add(tg);
+		tg = new Target(80, 0, tSize);
+		tList.add(tg);
+		tg = new Target(0, 75, tSize);
+		tList.add(tg);
+		tg = new Target(30, 0, tSize);
+		tList.add(tg);
+		tg = new Target(50, 50, tSize);
+		tList.add(tg);
 	}
 	
 	private boolean hitScan(Missile m, Target t) {
@@ -38,6 +51,8 @@ class Setup_2 {
 		int count = 0;
 		for (int i = 0; i < arl.size(); i++) {
 			if (hitScan(m, arl.get(i))) {
+				System.out.print("Hit: Target " + i + ": ");
+				arl.get(i).printPos();
 				arl.remove(i);
 				i--;
 				count++;
@@ -47,7 +62,8 @@ class Setup_2 {
 	}
 	
 	public void start() {
-		generateTargets(5);
+//		generateTargets(5);
+		manualGen();
 		int hit = hitCount(ms, tList);
 		if (hit != 0)
 			System.out.println(hit + " Targets Hit");
