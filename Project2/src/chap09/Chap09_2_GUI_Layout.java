@@ -3,6 +3,7 @@ package chap09;
 import java.awt.*;
 import javax.swing.*;
 
+@SuppressWarnings("serial")
 class GuiFrame2 extends JFrame {
 	public GuiFrame2() {
 		setTitle("BorderLayout");
@@ -24,6 +25,7 @@ class GuiFrame2 extends JFrame {
 	}
 }
 
+@SuppressWarnings("serial")
 class GuiFrame3 extends JFrame {
 	public GuiFrame3() {
 		setTitle("GridLayout");
