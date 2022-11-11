@@ -3,6 +3,7 @@ package chap09;
 import java.awt.*;
 import javax.swing.*;
 
+@SuppressWarnings("serial")
 class GuiFrame1 extends JFrame {
 	public GuiFrame1() {
 		setTitle("Sample Swing Frame 400*300");
