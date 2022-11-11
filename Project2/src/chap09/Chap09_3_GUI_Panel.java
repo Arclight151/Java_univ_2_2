@@ -3,6 +3,7 @@ package chap09;
 import java.awt.*;
 import javax.swing.*;
 
+@SuppressWarnings("serial")
 class GuiFrame4 extends JFrame {
 	public GuiFrame4() {
 		setTitle("CalcEx");
@@ -24,6 +25,7 @@ class GuiFrame4 extends JFrame {
 	}
 }
 
+@SuppressWarnings("serial")
 class Panel1 extends JPanel {
 	Panel1() {
 		this.setBackground(Color.yellow);
@@ -42,6 +44,7 @@ class Panel1 extends JPanel {
 }
 	
 
+@SuppressWarnings("serial")
 class Panel2 extends JPanel {
 	String[] btxt = {"1", "2", "3", "4", "5", "6", "7", "8", "9", "0", "C", "="};
 	Panel2() {
