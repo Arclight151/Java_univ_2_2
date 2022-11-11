@@ -65,7 +65,7 @@ class CenterPanel extends JPanel {
 public class Chap09_hw1_CalcSample {
 
 	public static void main(String[] args) {
-		new CalcFrame();
+		new CalculatorFrame();
 
 	}
 
