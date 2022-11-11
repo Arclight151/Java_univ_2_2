@@ -3,6 +3,7 @@ package chap09;
 import java.awt.*;
 import javax.swing.*;
 
+@SuppressWarnings("serial")
 class CalcFrame extends JFrame {
 	public CalcFrame() {
 		setTitle("Simple Calculator");
@@ -20,6 +21,7 @@ class CalcFrame extends JFrame {
 	}
 }
 
+@SuppressWarnings("serial")
 class NorthPanel extends JPanel {
 	public NorthPanel() {
 		this.setBackground(Color.lightGray);
@@ -37,6 +39,7 @@ class NorthPanel extends JPanel {
 	}
 }
 
+@SuppressWarnings("serial")
 class CenterPanel extends JPanel {
 	String[] btxt = {"0", "1", "2", "3", "4", "5", "6", "7", "8", "9", "CE", "=", "+", "-", "x", "/"};
 	JButton[] bArray = new JButton[16];
