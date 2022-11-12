@@ -43,7 +43,7 @@ class CalculatorFrame extends JFrame {
 		});
 		cp.bArray[11].addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				
+				np.calc();
 			}
 		});
 		
@@ -67,6 +67,27 @@ class NPanel extends JPanel {
 		tf1 = new JTextField("", 8);
 		tf1.setFont(f);
 		add(tf1);
+	}
+	
+	public void calc() {
+		String str = tf1.getText();
+		String[] num = str.split("\\+|-|x|/");
+		for (int i = 0; i < num.length; i++) {
+			switch (str.charAt(num[0].length())) {
+			case '+':
+				tf1.setText(Integer.toString(Integer.parseInt(num[0]) + Integer.parseInt(num[1])));
+				break;
+			case '-':
+				tf1.setText(Integer.toString(Integer.parseInt(num[0]) - Integer.parseInt(num[1])));
+				break;
+			case 'x':
+				tf1.setText(Integer.toString(Integer.parseInt(num[0]) * Integer.parseInt(num[1])));
+				break;
+			case '/':
+				tf1.setText(Float.toString(Float.parseFloat(num[0]) / Float.parseFloat(num[1])));
+				break;
+			}
+		}
 	}
 }
 
