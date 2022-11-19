@@ -1,4 +1,4 @@
-package chap09;
+package chap10;
 
 import java.awt.*;
 import java.awt.event.*;
@@ -117,7 +117,7 @@ class CPanel extends JPanel {
 	}
 }
 
-public class Chap09_hw3_ListenerCalc {
+public class Chap10_hw1_ListenerCalc {
 
 	public static void main(String[] args) {
 		new CalculatorFrame();
