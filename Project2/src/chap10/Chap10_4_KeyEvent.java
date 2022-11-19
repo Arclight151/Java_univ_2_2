@@ -12,8 +12,8 @@ class KeyPanel extends JFrame {
 	private int cx, cy;
 	private final int move = 10;
 	
-//	class KListener implements KeyListener
-	class KListener extends KeyAdapter {
+//	class TestListener implements KeyListener
+	class TestListener extends KeyAdapter {
 		public void keyPressed(KeyEvent e) {
 			int k = e.getKeyCode();
 			switch(k) {
@@ -46,7 +46,7 @@ class KeyPanel extends JFrame {
 		setResizable(true);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		this.setLayout(null);
-		this.addKeyListener(new KListener());
+		this.addKeyListener(new TestListener());
 		
 		l1.setLocation(lx, ly);
 		l1.setSize(size, size);
