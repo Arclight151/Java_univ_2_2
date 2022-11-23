@@ -10,7 +10,7 @@ class BouncingBall extends JFrame implements Runnable {
 	Ball ball;
 	int px = 10, py = 10, size = 50;
 	int cx, cy;
-	int mx = 50, my = 50;
+	int mx = 10, my = 10;
 	
 	public BouncingBall() {
 		setSize(400, 500);
@@ -59,7 +59,7 @@ class BouncingBall extends JFrame implements Runnable {
 				if (py + size + my > cy || py + my < 0)
 					my *= -1;
 				repaint();
-				Thread.sleep(5);
+				Thread.sleep(50);
 			}
 			catch (InterruptedException e) {
 				return;
