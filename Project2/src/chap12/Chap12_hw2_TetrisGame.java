@@ -117,6 +117,11 @@ class TetrisGame extends JFrame  implements Runnable {
 					return true;
 			return false;
 		}
+		public boolean isTop() {
+			//
+			gameOver = true;
+			return false;
+		}
 	}
 	
 	TetrisBlock tb;
@@ -156,6 +161,7 @@ class TetrisGame extends JFrame  implements Runnable {
 	
 	public TetrisGame() {
 		setSize(fx, fy);
+		setTitle("TetrisGame indev");
 		setLayout(null);
 		tb = new TetrisBlock();
 		setContentPane(tb);
