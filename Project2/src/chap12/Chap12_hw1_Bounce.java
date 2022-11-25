@@ -10,7 +10,7 @@ class BouncingBall extends JFrame implements Runnable {
 	Ball ball;
 	int px = 10, py = 10, size = 50;
 	int cx, cy;
-	int mx = 10, my = 10;
+	int mx = (int)(Math.random() * 11 + 5), my = (int)(Math.random() * 11 + 5);
 	
 	public BouncingBall() {
 		setSize(400, 500);
