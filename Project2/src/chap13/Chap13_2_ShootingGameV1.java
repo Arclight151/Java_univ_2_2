@@ -2,24 +2,60 @@ package chap13;
 
 import java.util.ArrayList;
 import java.awt.*;
+import java.awt.event.KeyAdapter;
+import java.awt.event.KeyEvent;
+
 import javax.swing.*;
 
 @SuppressWarnings("serial")
-class Game extends JFrame {
-	int fx = 300, fy = 500, cx, cy;
+class Game extends JFrame implements Runnable {
+	private GamePanel gp = new GamePanel();
+	int fx = 300, fy = 500, cx = 286, cy = 463;
 	int mx, my, tx, ty;
-	int tSize = 10;
-	ArrayList<Target> tgList = new ArrayList<>();
+	int mSize, tSize = 10;
+	int pSize = 20, px = cx / 2 - 5, py = cy - pSize - 10;
+	ArrayList<Target> tgList = null;
+	ArrayList<Missile> mslList = null;
+	Thread th;
 	
 	public Game() {
+		setSize(fx, fy);
+		setTitle("ShotingGameV1");
+		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		setContentPane(gp);
 		
+		th = new Thread(this);
+		tgList = new ArrayList<>();
+		
+		createTargets(10);
+		
+		gp.addKeyListener(new KeyAdapter() {
+			public void keyPressed(KeyEvent e){
+				int keyCode = e.getKeyCode();
+				switch (keyCode) {
+				case KeyEvent.VK_LEFT:
+					break;
+				case KeyEvent.VK_ENTER:
+					th.start();
+					System.out.println("Game Start");
+					break;
+				}
+				gp.repaint();
+			}
+		});
+		
+		setVisible(true);
+		gp.setFocusable(true);
+		gp.requestFocus();
+		cx = gp.getWidth();
+		cy = gp.getHeight();
 	}
 	
-	public void createTargetList(int n) {
+	public void createTargets(int n) {
 		int rx, ry;
 		for (int i = 0; i < n; i++) {
-			rx = (int) (Math.random() * (fx - tSize));
-			ry = (int) (Math.random() * (fy * 0.2));
+			rx = (int)(Math.random() * (cx - tSize));
+			ry = (int)(Math.random() * (cy * 0.2));
 			tgList.add(new Target(rx, ry, tSize, tSize));
 		}
 	}
@@ -31,7 +67,7 @@ class Game extends JFrame {
 	}
 	
 	private boolean isPassed(Target t) {
-		if (t.getY() > fy * 0.2)
+		if (t.getY() > cy * 0.8)
 			return true;
 		return false;
 	}
@@ -41,6 +77,48 @@ class Game extends JFrame {
 			if (isPassed(tgList.get(i))) {
 				tgList.remove(i);
 				i--;
+			}
+		}
+	}
+	
+	class GamePanel extends JPanel {
+		public void paintComponent(Graphics g) {
+			super.paintComponent(g);
+			drawPlayer(g);
+			drawTarget(g);
+		}
+		
+		void drawPlayer(Graphics g) {
+			g.setColor(Color.blue);
+			g.fillRect(px, py, pSize, pSize);
+		}
+		
+		void drawTarget(Graphics g) {
+			g.setColor(Color.orange);
+			Target tg;
+			for (int i = 0; i < tgList.size(); i++) {
+				tg = tgList.get(i);
+				g.fillRect(tg.getX(), tg.getY(), tg.getW(), tg.getH());
+			}
+		}
+		
+		void drawMsl(Graphics g) {
+			//
+		}
+	}
+
+	public void run() {
+		while (tgList.size() > 0) {
+			for (int i = 0; i < tgList.size(); i++) {
+				Target tg = tgList.get(i);
+				tg.move((int)(Math.random() * 5 + 3));
+				gp.repaint();
+			}
+			removeFromList();
+			try {
+				Thread.sleep(250);
+			} catch (InterruptedException e) {
+				return;
 			}
 		}
 	}
@@ -88,12 +166,7 @@ class Missile extends Rectangle {
 public class Chap13_2_ShootingGameV1 {
 
 	public static void main(String[] args) {
-		Game g = new Game();
-		g.createTargetList(5);
-		g.printList();
-		System.out.println();
-		g.removeFromList();
-		g.printList();
+		new Game();
 
 	}
 
