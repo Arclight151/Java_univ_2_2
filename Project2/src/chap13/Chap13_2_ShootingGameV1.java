@@ -13,7 +13,7 @@ class Game extends JFrame implements Runnable {
 	int fx = 300, fy = 500, cx = 286, cy = 463;
 	int mx, my, tx, ty;
 	int mSize, tSize = 10;
-	int pSize = 20, px = cx / 2 - 5, py = cy - pSize - 10;
+	int pSize = 20, pMove = 10, px = cx / 2 - 5, py = cy - pSize - 10;
 	ArrayList<Target> tgList = null;
 	ArrayList<Missile> mslList = null;
 	Thread th;
@@ -34,6 +34,20 @@ class Game extends JFrame implements Runnable {
 				int keyCode = e.getKeyCode();
 				switch (keyCode) {
 				case KeyEvent.VK_LEFT:
+					if (px > 0)
+						px -= pMove;
+					break;
+				case KeyEvent.VK_RIGHT:
+					if (px + pSize < cx)
+						px += pMove;
+					break;
+				case KeyEvent.VK_UP:
+					if (py - pMove > 0)
+						py -= pMove;
+					break;
+				case KeyEvent.VK_DOWN:
+					if (py + pSize < cy)
+						py += pMove;
 					break;
 				case KeyEvent.VK_ENTER:
 					th.start();
@@ -67,14 +81,31 @@ class Game extends JFrame implements Runnable {
 	}
 	
 	private boolean isPassed(Target t) {
-		if (t.getY() > cy * 0.8)
+		if (t.getY() >= cy * 0.8)
 			return true;
 		return false;
 	}
 	
-	public void removeFromList() {
+	public void removePassedFromList() {
 		for (int i = 0; i < tgList.size(); i++) {
 			if (isPassed(tgList.get(i))) {
+				System.out.println("Passed: " + i);
+				tgList.remove(i);
+				i--;
+			}
+		}
+	}
+	
+	private boolean isHit(Target t) {
+		if (((px + pSize) >= t.getX() && px <= (t.getX() + t.getW())) && ((py + pSize) >= t.getY() && py <= (t.getY() + t.getH())))
+			return true;
+		return false;
+	}
+	
+	public void removeHitFromList() {
+		for (int i = 0; i < tgList.size(); i++) {
+			if (isHit(tgList.get(i))) {
+				System.out.println("Hit: " + i);
 				tgList.remove(i);
 				i--;
 			}
@@ -86,6 +117,8 @@ class Game extends JFrame implements Runnable {
 			super.paintComponent(g);
 			drawPlayer(g);
 			drawTarget(g);
+			g.setColor(Color.gray);
+			g.fillRect(0, (int)(cy * 0.8), cx, 2);
 		}
 		
 		void drawPlayer(Graphics g) {
@@ -114,7 +147,8 @@ class Game extends JFrame implements Runnable {
 				tg.move((int)(Math.random() * 5 + 3));
 				gp.repaint();
 			}
-			removeFromList();
+			removePassedFromList();
+			removeHitFromList();
 			try {
 				Thread.sleep(250);
 			} catch (InterruptedException e) {
